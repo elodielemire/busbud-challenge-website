@@ -1,12 +1,12 @@
+## Heroku link
+
+You can find the app here : https://mysterious-river-33333.herokuapp.com/
+
 ## Installation
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 Modules required : **moments** and **boostrap**
 It was initialy made with **node-sass-chokidar** but it was not compatible for the deployement on Heroku. (That's why there is an App.scss)
-
-## Heroku link
-
-You can find the app here : https://mysterious-river-33333.herokuapp.com/
 
 ## Future improvements
 
