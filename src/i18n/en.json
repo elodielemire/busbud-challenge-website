@@ -1,0 +1,35 @@
+{
+	"Time": {
+		"timeLeft": "Time left :",
+		"days": "days",
+		"hours": "hours",
+		"sorry": "Sorry the event is finished, come back next year !"
+	},
+	"headline": {
+		"wannaGo": "Wanna go from NY to Osheaga ?",
+		"findBus": "will find you the cheapest bus !"
+	},
+	"Ticket": {
+		"details": "Details",
+		"hide": "Hide",
+		"Details": {
+			"oneway": "For one way per person",
+			"buy": "Buy",
+			"class": "Class",
+			"duration": "Duration",
+			"toilet": "Toilet",
+			"wifi": "Wifi",
+			"power": "Power Outlets",
+			"ac": "Air Conditioning",
+			"tv": "TV",
+			"departure": "Departure",
+			"arrival": "Arrival"
+		}
+	},
+	"loadingError": {
+		"sorry": "Sorry the connexion to the data base failed, please try to click on GO again."
+	},
+	"footer": {
+		"credits": "Created by Elodie Lemire | 2017 | Powered by "
+	}
+}

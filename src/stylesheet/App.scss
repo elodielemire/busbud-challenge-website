@@ -1,0 +1,308 @@
+$color-1: #FBEE40; // Osheaga's yellow
+$color-2: #ED4A95; // Osheaga's pink
+$color-3: #4F285A; // Osheaga's purple
+$color-4: #75C7ED; // Busbud's blue
+$color-5: #FBAF17; // Busbud's orange
+$color-6: #E6EDF9; // light blue
+
+$main-margin-padding: 20px;
+$md: 767px;
+@import url('https://fonts.googleapis.com/css?family=Changa+One|Poppins');
+
+#App {
+  margin:0;
+  padding: 0;
+	color: $color-3;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  background-color: $color-6;
+
+  .header {
+    background: linear-gradient(180deg, $color-5 0%, $color-5 20%, $color-2 84%, $color-2 100%);
+
+    .flags {
+      position: absolute;
+      right: 5%;
+      img {
+        height: 20px;
+      }
+      .true:hover {
+        filter: saturate(200%);
+        -webkit-filter: saturate(200%);
+      }
+      .false {
+        opacity: 0.5;
+      }
+    }
+
+    .headerPictures {
+      margin: 0;
+      padding: 10px;
+      height: 100%;
+      img {
+        margin: 0;
+        padding: 0;
+      }
+      .logo {
+        z-index: 1;
+        margin-top: $main-margin-padding;
+        vertical-align: middle;
+        @media (max-width: $md) {
+          transform: scale(2);
+          -webkit-transform: scale(2);
+          -moz-transform: scale(2);
+        }
+      }
+      .polaroid {
+        border-width: 10px 10px 50px 10px;
+        border-style: solid;
+        border-color: white;
+        box-shadow: 2px 2px 10px grey;
+        @media (max-width: $md) {
+          border: none;
+          box-shadow: none;
+        }
+        &.ny {
+          transform: rotate(-10deg);
+          -webkit-transform: rotate(-10deg);
+          -moz-transform: rotate(-10deg);
+          margin-top: 20px;
+        }
+        &.osheaga {
+          transform: rotate(2deg);
+          -webkit-transform: rotate(2deg);
+          -moz-transform: rotate(2deg);
+          margin-top: 20px;
+        }
+      }
+    }
+
+    .busArea {
+      img {
+        z-index: 2;
+        position: relative;
+        padding-top: 10px;
+        width: 200px;
+        right: calc(50vw - 110px);
+      }
+      .animating {
+        @media (max-width: $md) {
+          animation: crossScreen 1s;
+          -moz-animation: crossScreen 1s;
+          -webkit-animation: crossScreen 1s;
+        }
+        animation: crossScreen 3s;
+        -moz-animation: crossScreen 3s;
+        -webkit-animation: crossScreen 3s;
+      }
+      .animated {
+        right: calc(-50vw + 110px);
+      }
+    }
+	}
+
+  .headline {
+    h2, h3 {
+      font-family: 'Changa One', cursive;
+    }
+
+    .busbudLogo {
+      height: 35px;
+      vertical-align: -8px;
+    }
+  }
+
+  .body {
+    height: calc(100vh - 594px);
+  }
+
+  .hideError {
+    display: none;
+  }
+  .showError {
+    color: red;
+    .button {
+      @extend .buttonStyle;
+      color: black;
+    }
+  }
+
+  .footer {
+    width: 100%;
+    margin-top: $main-margin-padding;
+    border-top: 1px dotted $color-2;
+    color: $color-2;
+    font-size: 10px;
+    background-color: white;
+
+    img {
+    margin : 10px;
+    width : 20px;
+    filter: grayscale(0);
+    -moz-filter: grayscale(0);
+    -webkit-filter: grayscale(0);
+    filter: brightness(0);
+    -moz-filter: brightness(0);
+    -webkit-filter: brightness(0);
+
+    &:hover {
+      margin : 10px;
+      width : 20px;
+      filter: grayscale(1);
+      -moz-filter: grayscale(1);
+      -webkit-filter: grayscale(1);
+      filter: brightness(100%);
+      -moz-filter: grayscale(1);
+      -webkit-filter: brightness(100%);
+      }
+    }
+    p {
+      margin: 0;
+    }
+  }
+}
+
+.buttonStyle {
+  outline: none;
+  background-color: $color-5;
+  color: white;
+  height: 34px;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  &:active {
+    border: 1px solid white;
+  }
+}
+
+@keyframes crossScreen
+{
+  from {
+    right: calc(50vw - 110px);
+  }
+  to {
+    right: calc(-50vw + 110px);
+  }
+}
+
+// Style of the different components :
+
+#time {
+ @media (max-width: $md) {
+    height: 40px;
+    padding-top: 20px;
+  }
+  color: $color-3;
+  background-color: $color-1;
+  font-family: "Poppins", sans-serif;
+}
+
+#ticket {
+  color: black;
+  text-align: left;
+  background-color: white;
+  box-shadow: 2px 2px 10px grey;
+  .mainRow {
+    margin: 20px 0 0 0;
+    .col1 {
+      text-align: right;
+    }
+    .col2 {
+      h5 {
+        margin-bottom: 0;
+      }
+      p {
+        color: grey;
+      }
+    }
+    .col3 {
+      text-align: right;
+        border-left: 0;
+        border-top: 1px dashed grey;
+      
+      @media (min-width: $md) {
+        border-left: 1px dashed grey;
+        border-top: 0;
+      }
+      p {
+        margin-top: 10px;
+      }
+      i {
+        padding-right: 5px;
+      }
+      .showDetails {
+        color: $color-4;
+      }
+      .showDetails:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+#searchBar {
+  margin: $main-margin-padding;
+  padding-bottom: $main-margin-padding;
+  [class*="col-"] {
+    i {
+      padding-right: 40px;
+    }
+    .go {
+      @extend .buttonStyle;
+      &:hover {
+        background-color: $color-4;
+      }
+    }
+    @media (max-width: $md) {
+      padding-left: 0;
+      padding-right: 0;
+      i {
+        padding-right: $main-margin-padding;
+      }
+    }
+  }
+  .citiesInput {
+    input{
+      display: inline;
+      width: 46%;
+    }
+    i {
+      left: 0;
+      padding: 2px;
+    }
+  }
+}
+
+#details {
+  i {
+    color: limegreen;
+  }
+  .buy {
+    @extend .buttonStyle;
+    &:hover {
+      background-color: $color-2;
+    }
+    a {
+      color : white;
+      text-decoration: none;
+    }
+  }
+  .row {
+    .subRow {
+      height: 78px;
+      background-color: $color-4;
+      margin: $main-margin-padding;
+      border: 1px solid $color-6;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+    }
+    .address {
+      color: grey;
+    }
+    border-top: 1px solid grey;
+    margin: 0;
+  }
+}

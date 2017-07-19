@@ -1,0 +1,214 @@
+@import url("https://fonts.googleapis.com/css?family=Changa+One|Poppins");
+#App {
+  margin: 0;
+  padding: 0;
+  color: #4F285A;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+  background-color: #E6EDF9; }
+  #App .header {
+    background: linear-gradient(180deg, #FBAF17 0%, #FBAF17 20%, #ED4A95 84%, #ED4A95 100%); }
+    #App .header .flags {
+      position: absolute;
+      right: 5%; }
+      #App .header .flags img {
+        height: 20px; }
+      #App .header .flags .true:hover {
+        filter: saturate(200%);
+        -webkit-filter: saturate(200%); }
+      #App .header .flags .false {
+        opacity: 0.5; }
+    #App .header .headerPictures {
+      margin: 0;
+      padding: 10px;
+      height: 100%; }
+      #App .header .headerPictures img {
+        margin: 0;
+        padding: 0; }
+      #App .header .headerPictures .logo {
+        z-index: 1;
+        margin-top: 20px;
+        vertical-align: middle; }
+        @media (max-width: 767px) {
+          #App .header .headerPictures .logo {
+            transform: scale(2);
+            -webkit-transform: scale(2);
+            -moz-transform: scale(2); } }
+      #App .header .headerPictures .polaroid {
+        border-width: 10px 10px 50px 10px;
+        border-style: solid;
+        border-color: white;
+        box-shadow: 2px 2px 10px grey; }
+        @media (max-width: 767px) {
+          #App .header .headerPictures .polaroid {
+            border: none;
+            box-shadow: none; } }
+        #App .header .headerPictures .polaroid.ny {
+          transform: rotate(-10deg);
+          -webkit-transform: rotate(-10deg);
+          -moz-transform: rotate(-10deg);
+          margin-top: 20px; }
+        #App .header .headerPictures .polaroid.osheaga {
+          transform: rotate(2deg);
+          -webkit-transform: rotate(2deg);
+          -moz-transform: rotate(2deg);
+          margin-top: 20px; }
+    #App .header .busArea img {
+      z-index: 2;
+      position: relative;
+      padding-top: 10px;
+      width: 200px;
+      right: calc(50vw - 110px); }
+    #App .header .busArea .animating {
+      animation: crossScreen 3s;
+      -moz-animation: crossScreen 3s;
+      -webkit-animation: crossScreen 3s; }
+      @media (max-width: 767px) {
+        #App .header .busArea .animating {
+          animation: crossScreen 1s;
+          -moz-animation: crossScreen 1s;
+          -webkit-animation: crossScreen 1s; } }
+    #App .header .busArea .animated {
+      right: calc(-50vw + 110px); }
+  #App .headline h2, #App .headline h3 {
+    font-family: 'Changa One', cursive; }
+  #App .headline .busbudLogo {
+    height: 35px;
+    vertical-align: -8px; }
+  #App .body {
+    height: calc(100vh - 594px); }
+  #App .hideError {
+    display: none; }
+  #App .showError {
+    color: red; }
+    #App .showError .button {
+      color: black; }
+  #App .footer {
+    width: 100%;
+    margin-top: 20px;
+    border-top: 1px dotted #ED4A95;
+    color: #ED4A95;
+    font-size: 10px;
+    background-color: white; }
+    #App .footer img {
+      margin: 10px;
+      width: 20px;
+      filter: grayscale(0);
+      -moz-filter: grayscale(0);
+      -webkit-filter: grayscale(0);
+      filter: brightness(0);
+      -moz-filter: brightness(0);
+      -webkit-filter: brightness(0); }
+      #App .footer img:hover {
+        margin: 10px;
+        width: 20px;
+        filter: grayscale(1);
+        -moz-filter: grayscale(1);
+        -webkit-filter: grayscale(1);
+        filter: brightness(100%);
+        -moz-filter: grayscale(1);
+        -webkit-filter: brightness(100%); }
+    #App .footer p {
+      margin: 0; }
+
+.buttonStyle, #App .showError .button, #searchBar [class*="col-"] .go, #details .buy {
+  outline: none;
+  background-color: #FBAF17;
+  color: white;
+  height: 34px;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px; }
+  .buttonStyle:active, #App .showError .button:active, #searchBar [class*="col-"] .go:active, #details .buy:active {
+    border: 1px solid white; }
+
+@keyframes crossScreen {
+  from {
+    right: calc(50vw - 110px); }
+  to {
+    right: calc(-50vw + 110px); } }
+
+#time {
+  color: #4F285A;
+  background-color: #FBEE40;
+  font-family: "Poppins", sans-serif; }
+  @media (max-width: 767px) {
+    #time {
+      height: 40px;
+      padding-top: 20px; } }
+
+#ticket {
+  color: black;
+  text-align: left;
+  background-color: white;
+  box-shadow: 2px 2px 10px grey; }
+  #ticket .mainRow {
+    margin: 20px 0 0 0; }
+    #ticket .mainRow .col1 {
+      text-align: right; }
+    #ticket .mainRow .col2 h5 {
+      margin-bottom: 0; }
+    #ticket .mainRow .col2 p {
+      color: grey; }
+    #ticket .mainRow .col3 {
+      text-align: right;
+      border-left: 0;
+      border-top: 1px dashed grey; }
+      @media (min-width: 767px) {
+        #ticket .mainRow .col3 {
+          border-left: 1px dashed grey;
+          border-top: 0; } }
+      #ticket .mainRow .col3 p {
+        margin-top: 10px; }
+      #ticket .mainRow .col3 i {
+        padding-right: 5px; }
+      #ticket .mainRow .col3 .showDetails {
+        color: #75C7ED; }
+      #ticket .mainRow .col3 .showDetails:hover {
+        text-decoration: underline; }
+
+#searchBar {
+  margin: 20px;
+  padding-bottom: 20px; }
+  #searchBar [class*="col-"] i {
+    padding-right: 40px; }
+  #searchBar [class*="col-"] .go:hover {
+    background-color: #75C7ED; }
+  @media (max-width: 767px) {
+    #searchBar [class*="col-"] {
+      padding-left: 0;
+      padding-right: 0; }
+      #searchBar [class*="col-"] i {
+        padding-right: 20px; } }
+  #searchBar .citiesInput input {
+    display: inline;
+    width: 46%; }
+  #searchBar .citiesInput i {
+    left: 0;
+    padding: 2px; }
+
+#details i {
+  color: limegreen; }
+
+#details .buy:hover {
+  background-color: #ED4A95; }
+
+#details .buy a {
+  color: white;
+  text-decoration: none; }
+
+#details .row {
+  border-top: 1px solid grey;
+  margin: 0; }
+  #details .row .subRow {
+    height: 78px;
+    background-color: #75C7ED;
+    margin: 20px;
+    border: 1px solid #E6EDF9;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px; }
+  #details .row .address {
+    color: grey; }
