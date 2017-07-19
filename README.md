@@ -17,4 +17,4 @@ It was initialy made with **node-sass-chokidar** but it was not compatible for t
 
 ## Remark : Api fail
 
-Generally it fails the first time the datas are fetch. The 'complete' element is set to false even in the poll search. So you need to click the button a few seconds later to show the tickets. I didn't know how to fix that issue.
+Generally it fails the first time the datas are fetch. The 'complete' element is set to false even in the poll search. (You can see it in the console, I kept the log for checking) So you need to click the button a few seconds later to show the tickets. I didn't know how to fix that issue.
