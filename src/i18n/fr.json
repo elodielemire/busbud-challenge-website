@@ -26,8 +26,10 @@
 			"arrival": "Arrivée"
 		}
 	},	
-	"loadingError": {
-		"sorry": "Désolé la connexion à la base de données a échoué, vous pouvez réesayer en cliquant sur GO"
+	"errorMessages": {
+		"connexionFailed": "Désolé la connexion à la base de données a échoué, vous pouvez réesayer en cliquant sur GO",
+		"outboundDate": "Désolé cette date est déjà passée",
+		"unknownError": "Erreur d'origine inconnue"
 	},
 	"footer": {
 		"credits": "Crée par Elodie Lemire | 2017 | Avec "

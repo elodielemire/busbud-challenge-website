@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import '../stylesheet/App.css';
+import moment from 'moment';
 // Images
 import busImg from '../img/bus.gif';
 import nycImg from '../img/nyc.jpg';
@@ -21,7 +22,7 @@ class App extends Component {
       lang: 'en',
       ticketsAreReady: false,
       busHasCrossed: false,
-      loadingErrorClass: 'hideError'
+      errorMessageClass: 'hideError'
     };
     this.sortByTime = this.sortByTime.bind(this);
     this.associateTables = this.associateTables.bind(this);
@@ -32,6 +33,7 @@ class App extends Component {
     this.langDatas = require('../i18n/en.json');
     this.ticketsAreShown = false;
     this.departureTimes = [];
+    this.searchDate = moment(new Date()).format('YYYY-MM-DD');
   }
 
   componentDidMount () {
@@ -49,12 +51,12 @@ class App extends Component {
   }
 
   fetchDatas () {
-    const pathParams = {
+    var pathParams = {
       origin: 'dr5reg',
       destination: 'f25dvk',
-      outbound_date: '2017-07-29'
+      outbound_date: this.searchDate
     };
-    const apiUrl = 'https://napi.busbud.com/x-departures/' + pathParams.origin + '/' + pathParams.destination + '/' + pathParams.outbound_date;
+    var apiUrl = 'https://napi.busbud.com/x-departures/' + pathParams.origin + '/' + pathParams.destination + '/' + pathParams.outbound_date;
     const myHeaders = {
       'Accept': 'application/vnd.busbud+json; version=2; profile=https://schema.busbud.com/v2/',
       'X-Busbud-token': 'PARTNER_JSWsVZQcS_KzxNRzGtIt1A'
@@ -73,19 +75,24 @@ class App extends Component {
       fetch(apiUrl, queryParams)
       .then(data => data.json())
       .then(dataJson => {
-        console.log('fetch', dataJson, dataJson.complete);
+        console.log('Fetch : complete =', dataJson.complete);
         // Check if every data is here because sometimes complete was true but the cities were not loaded
-        if (dataJson.complete && dataJson.departures && dataJson.cities && dataJson.operators && dataJson.locations) {
+        if (dataJson.error) {
+          this.showError(this.langDatas.errorMessages.outboundDate);
+        } else if (dataJson.complete && dataJson.departures && dataJson.cities && dataJson.operators && dataJson.locations) {
           this.setState({
             departuresData: dataJson.departures,
             citiesData: dataJson.cities,
             operatorsData: dataJson.operators,
             locationsData: dataJson.locations,
-            loadingErrorClass: 'hideError'
+            errorMessageClass: 'hideError'
           }, () => this.sortByTime());
         } else {
           this.pollDatas(pathParams, apiUrl, queryParams, dataJson);
         }
+      })
+      .catch((error) => {
+        console.error(error);
       });
     }
   }
@@ -97,20 +104,29 @@ class App extends Component {
     fetch(pollApiUrl, pollQueryParams)
       .then(data => data.json())
       .then(dataJson => {
-        console.log('poll', dataJson, dataJson.complete && dataJson.departures && dataJson.operators && previousData.cities && previousData.locations);
-        if (dataJson.complete && dataJson.departures && dataJson.operators && previousData.cities && previousData.locations) {
+        console.log('PollSearch : complete = ', dataJson.complete);
+        if (!dataJson.complete) {
+          this.showError(this.langDatas.errorMessages.connexionFailed);
+        } else if (dataJson.departures && dataJson.operators && previousData.cities && previousData.locations) {
           this.setState({
             departuresData: dataJson.departures,
             citiesData: previousData.cities,
             operatorsData: dataJson.operators,
             locationsData: previousData.locations,
-            loadingErrorClass: 'hideError'
+            errorMessageClass: 'hideError'
           }, () => this.sortByTime());
         } else {
-          // when the city is not loaded it will never be except if we reload the page
-          this.setState({loadingErrorClass: 'showError'});
+          this.showError(this.langDatas.errorMessages.unknownError);
         }
+      })
+      .catch((error) => {
+        console.error(error);
       });
+  }
+
+  showError (errorMessage) {
+    this.errorMessage = errorMessage;
+    this.setState({errorMessageClass: 'showError'});
   }
 
   sortByTime () {
@@ -118,7 +134,6 @@ class App extends Component {
     arrayToSort.sort(function (a, b) {
       return a.departure_time.slice(11, 19).replace(/:/g, '') - b.departure_time.slice(11, 19).replace(/:/g, '');
     });
-    // this.setState({departuresData: arrayToSort});
     this.associateTables(arrayToSort);
   }
 
@@ -182,9 +197,9 @@ class App extends Component {
           <h2>{this.langDatas.headline.wannaGo}</h2>
           <h3><a href='https://www.busbud.com/en-ca'><img className='busbudLogo' alt='busbud logo' src={busbudLogo}></img></a>{this.langDatas.headline.findBus}</h3>
         </div>
-        <SearchBar clickHandler={this.fetchDatas}></SearchBar>
-        <div className={this.state.loadingErrorClass}>
-          <p>{this.langDatas.loadingError.sorry}</p>
+        <SearchBar searchDate={this.searchDate} clickHandler={this.fetchDatas}></SearchBar>
+        <div className={this.state.errorMessageClass}>
+          <p>{this.errorMessage}</p>
         </div>
         {(this.state.ticketsAreReady && this.state.busHasCrossed) ?
           <div className='container tickets'>
