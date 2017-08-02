@@ -9,6 +9,7 @@
   #App .header {
     background: linear-gradient(180deg, #FBAF17 0%, #FBAF17 20%, #ED4A95 84%, #ED4A95 100%); }
     #App .header .flags {
+      z-index: 3;
       position: absolute;
       right: 5%; }
       #App .header .flags img {
