@@ -21,7 +21,7 @@ class SearchBar extends React.Component {
           </div>
           <div className='has-feedback-right col-xs-5 col-sm-3'>
             <i className='form-control-feedback glyphicon glyphicon-calendar'></i>
-            <input className='form-control' type='text' value='07-29-2017' onChange={()=>{}} required placeholder='Departure date'></input>
+            <input className='form-control' type='text' value={this.props.searchDate} onChange={()=>{}} required placeholder='Departure date'></input>
           </div>
           <div className='has-feedback-right col-xs-3 col-sm-2'>
             <i className='form-control-feedback glyphicon glyphicon-user'></i>
