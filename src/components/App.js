@@ -14,6 +14,7 @@ import usFlag from '../img/us-flag.png';
 import Time from './Time';
 import Ticket from './Ticket';
 import SearchBar from './SearchBar';
+import SortButton from './SortButton';
 
 class App extends Component {
   constructor (props) {
@@ -24,7 +25,7 @@ class App extends Component {
       busHasCrossed: false,
       errorMessageClass: 'hideError'
     };
-    this.sortByTime = this.sortByTime.bind(this);
+    this.sortResultsBy = this.sortResultsBy.bind(this);
     this.associateTables = this.associateTables.bind(this);
     this.loopThroughTables = this.loopThroughTables.bind(this);
     this.switchLanguage = this.switchLanguage.bind(this);
@@ -33,7 +34,9 @@ class App extends Component {
     this.langDatas = require('../i18n/en.json');
     this.ticketsAreShown = false;
     this.departureTimes = [];
-    this.searchDate = moment(new Date()).format('YYYY-MM-DD');
+    var todaysDate = new Date();
+    var tomorrowsDate = todaysDate.setDate(todaysDate.getDate() + 1);
+    this.searchDate = moment(tomorrowsDate).format('YYYY-MM-DD');
   }
 
   componentDidMount () {
@@ -75,7 +78,6 @@ class App extends Component {
       fetch(apiUrl, queryParams)
       .then(data => data.json())
       .then(dataJson => {
-        console.log('Fetch : complete =', dataJson.complete);
         // Check if every data is here because sometimes complete was true but the cities were not loaded
         if (dataJson.error) {
           this.showError(this.langDatas.errorMessages.outboundDate);
@@ -86,7 +88,10 @@ class App extends Component {
             operatorsData: dataJson.operators,
             locationsData: dataJson.locations,
             errorMessageClass: 'hideError'
-          }, () => this.sortByTime());
+          }, () => {
+            this.busMovingClass = 'animating';
+            this.sortResultsBy('time');
+          });
         } else {
           this.pollDatas(pathParams, apiUrl, queryParams, dataJson);
         }
@@ -104,7 +109,6 @@ class App extends Component {
     fetch(pollApiUrl, pollQueryParams)
       .then(data => data.json())
       .then(dataJson => {
-        console.log('PollSearch : complete = ', dataJson.complete);
         if (!dataJson.complete) {
           this.showError(this.langDatas.errorMessages.connexionFailed);
         } else if (dataJson.departures && dataJson.operators && previousData.cities && previousData.locations) {
@@ -114,7 +118,10 @@ class App extends Component {
             operatorsData: dataJson.operators,
             locationsData: previousData.locations,
             errorMessageClass: 'hideError'
-          }, () => this.sortByTime());
+          }, () => {
+            this.busMovingClass = 'animating';
+            this.sortResultsBy('time');
+          });
         } else {
           this.showError(this.langDatas.errorMessages.unknownError);
         }
@@ -129,16 +136,21 @@ class App extends Component {
     this.setState({errorMessageClass: 'showError'});
   }
 
-  sortByTime () {
-    var arrayToSort = this.state.departuresData.slice(0);
-    arrayToSort.sort(function (a, b) {
-      return a.departure_time.slice(11, 19).replace(/:/g, '') - b.departure_time.slice(11, 19).replace(/:/g, '');
-    });
+  sortResultsBy (criteria) {
+    var arrayToSort = this.state.departuresData;
+    if (criteria === 'time') {
+      arrayToSort.sort(function (a, b) {
+        return a.departure_time.slice(11, 19).replace(/:/g, '') - b.departure_time.slice(11, 19).replace(/:/g, '');
+      });
+    } else if (criteria === 'price') {
+      arrayToSort.sort(function (a, b) {
+        return a.prices.total - b.prices.total;
+      });
+    }
     this.associateTables(arrayToSort);
   }
 
   associateTables (departuresArray) {
-    this.busMovingClass = 'animating';
     departuresArray.map(departureElement => { // loop through all the departures elements and add the other tables to it
       this.departureTimes.push(departureElement.departure_time);
 
@@ -203,6 +215,7 @@ class App extends Component {
         </div>
         {(this.state.ticketsAreReady && this.state.busHasCrossed) ?
           <div className='container tickets'>
+            <SortButton clickHandler={this.sortResultsBy}></SortButton>
             {this.state.departuresData.map(function (departureElement, i) {
               return <Ticket key={i} dataToTransfer={departureElement} langDatas={this.langDatas.Ticket}></Ticket>;
               }.bind(this))
