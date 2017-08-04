@@ -1,6 +1,6 @@
 import React from 'react';
 
-let eventDate = new Date('Aug 06 16:00:00 2017');
+let eventDate = new Date('Aug 04 16:00:00 2017');
 
 class Time extends React.Component {
   constructor (props) {

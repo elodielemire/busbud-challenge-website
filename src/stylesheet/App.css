@@ -190,17 +190,6 @@
     left: 0;
     padding: 2px; }
 
-#sortButton {
-  height: 20px; }
-  #sortButton .button {
-    margin: auto;
-    width: 200px;
-    color: #4F285A; }
-  #sortButton .button:hover {
-    text-decoration: underline; }
-  #sortButton i {
-    padding-right: 5px; }
-
 #details i {
   color: limegreen; }
 
