@@ -275,21 +275,6 @@ $md: 767px;
   }
 }
 
-#sortButton {
-  height: 20px;
- .button {
-    margin: auto;
-    width: 200px;
-    color: #4F285A;
-    &:hover {
-      text-decoration: underline;
-    }
-  }
-  i {
-    padding-right: 5px;
-  }
-}
-
 #details {
   i {
     color: limegreen;
