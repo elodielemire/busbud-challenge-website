@@ -13,7 +13,7 @@ It was initialy made with **node-sass-chokidar** but it was not compatible for t
 - Separate the actions functions from the App.js file
 - Use reducers
 - Handle errors
-- Allow the user to sort the result by price
+- Allow the user to sort the result by price - Done in [pull request #5](https://github.com/elodielemire/busbud-challenge-website/pull/5)
 
 ## Remark : Api fetching process
 
