@@ -225,7 +225,7 @@ class App extends Component {
         }
         <div className='footer'>
           <img src={githubIcon} alt='github icon'></img>
-          <p>{this.langDatas.footer.credits} <a href='https://www.busbud.com/en-ca'>busbud</a> | <a href='https://github.com/busbud/coding-challenge-frontend-b'>Challenge repo</a> | <a href='https://github.com/elodielemire/nyc-osheaga-bus'>Project repo</a></p>
+          <p>{this.langDatas.footer.credits} <a href='https://www.busbud.com/en-ca'>busbud</a> | <a href='https://github.com/busbud/coding-challenge-frontend-b'>Challenge repo</a> | <a href='https://github.com/elodielemire/busbud-challenge-website'>Project repo</a></p>
         </div>
       </div>
     );
