@@ -14,7 +14,3 @@ It was initialy made with **node-sass-chokidar** but it was not compatible for t
 - Use reducers
 - Handle errors
 - Allow the user to sort the result by price - Done in [pull request #5](https://github.com/elodielemire/busbud-challenge-website/pull/5)
-
-## Remark : Api fetching process
-
-Generally it fails the first time the datas are fetch. The 'complete' element is set to false even in the poll search. So you need to click the button a few seconds later to show the tickets. I still don't know how to fix that issue.
