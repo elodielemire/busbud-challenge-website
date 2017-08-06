@@ -42,8 +42,7 @@ class App extends Component {
   componentDidMount () {
     // show the tickets once the bus crossed the screen
     this.refs.app.addEventListener('animationend', () => {
-      this.busMovingClass = 'animated'; // position the bus on the right side
-      this.setState({busHasCrossed: true});
+      this.setState({busHasCrossed: true, busMovingClass: 'animated'});// position the bus on the right side
     });
   }
 
@@ -78,21 +77,22 @@ class App extends Component {
       fetch(apiUrl, queryParams)
       .then(data => data.json())
       .then(dataJson => {
-        // Check if every data is here because sometimes complete was true but the cities were not loaded
         if (dataJson.error) {
-          this.showError(this.langDatas.errorMessages.outboundDate);
+          if (dataJson.error.details.indexOf('date_in_the_past') >= 0) {
+            this.showError(this.langDatas.errorMessages.outboundDate); // Specific message for outbound date error
+          } else {
+            this.showError('Sorry an error has occured : ' + dataJson.error.details); // if the Json has any other error element, the datails will be logged on the page
+          }
         } else if (dataJson.complete && dataJson.departures && dataJson.cities && dataJson.operators && dataJson.locations) {
           this.setState({
             departuresData: dataJson.departures,
             citiesData: dataJson.cities,
             operatorsData: dataJson.operators,
             locationsData: dataJson.locations,
-            errorMessageClass: 'hideError'
-          }, () => {
-            this.busMovingClass = 'animating';
-            this.sortResultsBy('time');
-          });
-        } else {
+            errorMessageClass: 'hideError',
+            busMovingClass: 'animating'
+          }, () => this.sortResultsBy('time'));
+        } else { // if there's no error element but complete is false or any of the datas is missing
           this.pollDatas(pathParams, apiUrl, queryParams, dataJson);
         }
       })
@@ -110,20 +110,20 @@ class App extends Component {
       .then(data => data.json())
       .then(dataJson => {
         if (!dataJson.complete) {
-          this.showError(this.langDatas.errorMessages.connexionFailed);
-        } else if (dataJson.departures && dataJson.operators && previousData.cities && previousData.locations) {
+          this.setState({
+            busMovingClass: 'animating'
+          });
+          this.pollDatas(pathParams, apiUrl, queryParams, previousData);
+        } else if (dataJson.departures && dataJson.cities && dataJson.operators && dataJson.locations) {
           this.setState({
             departuresData: dataJson.departures,
             citiesData: previousData.cities,
             operatorsData: dataJson.operators,
             locationsData: previousData.locations,
             errorMessageClass: 'hideError'
-          }, () => {
-            this.busMovingClass = 'animating';
-            this.sortResultsBy('time');
-          });
+          }, () => this.sortResultsBy('time'));
         } else {
-          this.showError(this.langDatas.errorMessages.unknownError);
+          this.showError(this.langDatas.errorMessages.unknownError); // For example: sometimes complete is true but the cities were not loaded
         }
       })
       .catch((error) => {
@@ -202,7 +202,7 @@ class App extends Component {
             <img className='polaroid osheaga col-xs-3' alt='osheaga crowd' src={osheagaImg}></img>
           </div>
           <div className='busArea'>
-            <img className={this.busMovingClass} alt='busbud bus' src={busImg}></img>
+            <img className={this.state.busMovingClass} alt='busbud bus' src={busImg}></img>
           </div>
         </div>
         <div className='container headline'>

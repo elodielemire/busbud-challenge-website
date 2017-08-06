@@ -28,8 +28,8 @@
 	},
 	"errorMessages": {
 		"connexionFailed": "Sorry the connexion to the data base failed, please try to click on GO again.",
-		"outboundDate": "Sorry this date is in the past",
-		"unknownError": "An unknown error has occured"
+		"outboundDate": "Sorry this date is in the past.",
+		"unknownError": "An unknown error has occured, please try again."
 	},
 	"footer": {
 		"credits": "Created by Elodie Lemire | 2017 | Powered by "
