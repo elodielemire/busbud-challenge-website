@@ -13,6 +13,7 @@
       position: absolute;
       right: 5%; }
       #App .header .flags img {
+        margin-top: -1px;
         height: 20px; }
       #App .header .flags .true:hover {
         filter: saturate(200%);
