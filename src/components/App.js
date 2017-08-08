@@ -103,6 +103,11 @@ class App extends Component {
   }
 
   pollDatas (pathParams, apiUrl, queryParams, previousData) {
+    if (this.state.busMovingClass !== 'animated') { // if the bus is arrived on the right it stays there until the poll is done
+      this.setState({
+        busMovingClass: 'animating'
+      });
+    }
     const pollApiUrl = apiUrl + '/poll';
     const pollQueryParams = queryParams;
     pollQueryParams.index = 0;
@@ -110,11 +115,8 @@ class App extends Component {
       .then(data => data.json())
       .then(dataJson => {
         if (!dataJson.complete) {
-          this.setState({
-            busMovingClass: 'animating'
-          });
           this.pollDatas(pathParams, apiUrl, queryParams, previousData);
-        } else if (dataJson.departures && dataJson.cities && dataJson.operators && dataJson.locations) {
+        } else if (dataJson.departures && previousData.cities && dataJson.operators && previousData.locations) {
           this.setState({
             departuresData: dataJson.departures,
             citiesData: previousData.cities,
@@ -123,7 +125,7 @@ class App extends Component {
             errorMessageClass: 'hideError'
           }, () => this.sortResultsBy('time'));
         } else {
-          this.showError(this.langDatas.errorMessages.unknownError); // For example: sometimes complete is true but the cities were not loaded
+          this.showError(this.langDatas.errorMessages.unknownError);
         }
       })
       .catch((error) => {

@@ -7,7 +7,7 @@ class Time extends React.Component {
     super(props);
     this.state = {
       timeLeftStr: this.calculateTimeLeft(),
-      background: '#FBEE40'
+      color: '#4F285A'
     };
   }
 
@@ -24,8 +24,9 @@ class Time extends React.Component {
       timeLeftStr = this.props.langDatas.timeLeft + ' ' + days.toString() + ' ' + this.props.langDatas.days + ' ' + hours.toString() + ' ' + this.props.langDatas.hours + ' ' + mn.toString() + ' mn ' + s.toString() + ' s ';
     } else { // If the event is finished
       timeLeftStr = this.props.langDatas.sorry;
+      clearInterval(this.intervalID);
       this.setState({
-        background: 'red'
+        color: 'red'
       });
     }
     return timeLeftStr;
@@ -50,7 +51,7 @@ class Time extends React.Component {
 
   render () {
     return (
-      <div id='time' style={{backgroundColor: this.state.background}}>
+      <div id='time' style={{color: this.state.color}}>
         {this.state.timeLeftStr}
       </div>
     );
