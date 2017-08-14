@@ -32,8 +32,6 @@ class App extends Component {
     this.fetchDatas = this.fetchDatas.bind(this);
     this.pollDatas = this.pollDatas.bind(this);
     this.langDatas = require('../i18n/en.json');
-    this.ticketsAreShown = false;
-    this.departureTimes = [];
     var todaysDate = new Date();
     var tomorrowsDate = todaysDate.setDate(todaysDate.getDate() + 1);
     this.searchDate = moment(tomorrowsDate).format('YYYY-MM-DD');
@@ -73,7 +71,7 @@ class App extends Component {
     };
 
     // Nothing happens if the tickets are already shown
-    if (!this.ticketsAreShown) {
+    if (!this.state.ticketsAreReady) {
       fetch(apiUrl, queryParams)
       .then(data => data.json())
       .then(dataJson => {
@@ -154,8 +152,6 @@ class App extends Component {
 
   associateTables (departuresArray) {
     departuresArray.map(departureElement => { // loop through all the departures elements and add the other tables to it
-      this.departureTimes.push(departureElement.departure_time);
-
       this.loopThroughTables(this.state.operatorsData, departureElement.operator_id, departureElement);
       departureElement.operatorElement = departureElement.provisioryElement;
 
@@ -178,7 +174,6 @@ class App extends Component {
       departuresData: departuresArray,
       ticketsAreReady: true
     });
-    this.ticketsAreShown = true;
   }
 
   loopThroughTables (tableToLoop, linkWithDeparture, departureElement) {
